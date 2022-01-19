@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
+
 import {
   Card,
   Icon,
@@ -10,26 +10,14 @@ import {
   Button,
 } from "semantic-ui-react";
 
-import "../App.css";
+import "../../App.css";
 import "./Slider.css";
 import BtnSlider from "./BtnSlider";
 
-import Data from "../components/data";
+import data from "../../data/data";
 
 export default function Slider() {
-  const history = useHistory();
-
-  let { id } = useParams();
-  let im = Data.data[id].image;
-  async function loggedOut() {
-    history.push("/");
-  }
-  async function back() {
-    history.push("/allcourse");
-  }
-  let t = Data.data[id].title;
-  console.log(id);
-  let date = 3;
+  let day = 1;
   const [slideIndex, setSlideIndex] = useState(1);
 
   const nextSlide = () => {
@@ -54,28 +42,19 @@ export default function Slider() {
 
   return (
     <>
-      <div className="navbar">
-        <Button
-          labelPosition="left"
-          icon="left chevron"
-          content="Back"
-          onClick={back}
-        />
-        <h2 className="ui left floated header">Today's Content</h2>
-        <h2 className="ui right floated header">
-          <Button onClick={loggedOut} className="ui button">
-            Log Out
-          </Button>
-        </h2>
-      </div>
-
       <div className="container-slider">
-        {Data.data[id].topics.map((obj, index) => {
-          if (index < date * 4 && index >= (date - 1) * 4) {
-            return (
-              <div
+        <div className={slideIndex === 1 ? "slide active-anim" : "slide"}>
+          <Card className="cardbody" fluid="1">
+            <Image src={data.chakra[day].image} className="cardbody" />
+            <Card.Content textAlign="center">
+              <Card.Header>{data.chakra[day].title}</Card.Header>
+              <Card.Description>{data.chakra[day].des}</Card.Description>
+            </Card.Content>
+          </Card>
+        </div>
+        {/* <div
                 className={
-                  slideIndex === index - (date - 1) * 4 + 1
+                  slideIndex === 2
                     ? "slide active-anim"
                     : "slide"
                 }
@@ -88,9 +67,37 @@ export default function Slider() {
                   </Card.Content>
                 </Card>
               </div>
-            );
-          }
-        })}
+              <div
+                className={
+                  slideIndex === 3
+                    ? "slide active-anim"
+                    : "slide"
+                }
+              >
+                <Card className="cardbody" fluid="1">
+                  <Image src={im} className="cardbody" />
+                  <Card.Content textAlign="center">
+                    <Card.Header>{t}</Card.Header>
+                    <Card.Description>{obj}</Card.Description>
+                  </Card.Content>
+                </Card>
+              </div> */}
+        {/* <div
+                className={
+                  slideIndex === 4
+                    ? "slide active-anim"
+                    : "slide"
+                }
+              >
+                <Card className="cardbody" fluid="1">
+                  <Image src={im} className="cardbody" />
+                  <Card.Content textAlign="center">
+                    <Card.Header>{t}</Card.Header>
+                    <Card.Description>{obj}</Card.Description>
+                  </Card.Content>
+                </Card>
+              </div> */}
+
         <BtnSlider moveSlide={nextSlide} direction={"next"} />
         <BtnSlider moveSlide={prevSlide} direction={"prev"} />
 

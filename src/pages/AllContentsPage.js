@@ -50,7 +50,7 @@ function AllContents() {
               <Button
                 //   onClick={readmore}
                 onClick={() => {
-                  //   setModalData(course.topics);
+                  readmore();
                 }}
                 class="ui button"
               >
