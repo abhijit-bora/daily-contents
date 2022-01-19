@@ -17,7 +17,7 @@ const LogInPage = ({ setIsLoggedIn }) => {
   const history = useHistory();
   async function submitForm() {
     console.log(formDetails);
-    history.push("/");
+    history.push("/AllContent");
   }
   //   try {
   //     console.log(formDetails);
@@ -49,7 +49,7 @@ const LogInPage = ({ setIsLoggedIn }) => {
       </Header>
       <Grid
         textAlign="center"
-        style={{ height: "100vh" }}
+        style={{ height: "80vh" }}
         verticalAlign="middle"
       >
         <Grid.Column style={{ maxWidth: 450 }}>
