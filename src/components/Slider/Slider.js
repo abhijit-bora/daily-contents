@@ -18,8 +18,8 @@ import BtnSlider from "./BtnSlider";
 import data from "../../data/data";
 
 export default function Slider() {
-  let day = 5;
-  let date = 1;
+  let day = 4;
+  let date = 27;
   const [slideIndex, setSlideIndex] = useState(1);
 
   const nextSlide = () => {
@@ -48,23 +48,29 @@ export default function Slider() {
         <div className={slideIndex === 1 ? "slide active-anim" : "slide"}>
           <Card className="cardbody" fluid="1">
             <Image src={data.chakra[day].image} className="cardbody" />
-            <Card.Content textAlign="center">
-              <Card.Header>{data.chakra[day].title}</Card.Header>
+            <Card.Content textAlign="center" style={{ height: "100%" }}>
+              <Card.Header style={{ height: "100%" }}>
+                {data.chakra[day].title}
+              </Card.Header>
             </Card.Content>
           </Card>
         </div>
         <div className={slideIndex === 2 ? "slide active-anim" : "slide"}>
-          <Card className="cardbody" fluid="1">
-            {/* <Image src={data.chakra[day].image} className="cardbody" /> */}
+          <Card
+            className="cardbody"
+            style={{ height: "100%" }}
+            fluid="1"
+            centered={true}
+          >
             <Card.Content textAlign="center">
-              <Card.Header>Affirmations:</Card.Header>
-              <Card.Description>
-                <List as="ul">
-                  {data.chakra[day].des.map((obj, i) => {
-                    return <List.Item as="li">{obj}</List.Item>;
-                  })}
-                </List>
-              </Card.Description>
+              <Header as="h1">Affirmations:</Header>
+              {/* <Card.Description> */}
+              <List as="ul" size="massive">
+                {data.chakra[day].des.map((obj, i) => {
+                  return <List.Item as="li">{obj}</List.Item>;
+                })}
+              </List>
+              {/* </Card.Description> */}
             </Card.Content>
           </Card>
         </div>
@@ -86,7 +92,7 @@ export default function Slider() {
 
         <div className={slideIndex === 3 ? "slide active-anim" : "slide"}>
           <Card className="cardbody" fluid="1">
-            <Player src="videos/9.mp4" className="cardbody" />
+            <Player src={`videos/${date}.mp4`} className="cardbody" />
 
             <Card.Content textAlign="center">
               <Card.Header>Daily Concentration</Card.Header>
