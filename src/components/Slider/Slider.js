@@ -1,16 +1,8 @@
 import React, { useState } from "react";
 
-import {
-  Card,
-  Icon,
-  Header,
-  Image,
-  Modal,
-  List,
-  Button,
-} from "semantic-ui-react";
-import { Player, ControlBar, PlayToggle, BigPlayButton } from "video-react";
-
+import { Card, Header, Image, List } from "semantic-ui-react";
+import { Player, ControlBar, BigPlayButton } from "video-react";
+import day from "../../data/day";
 import "../../App.css";
 import "./Slider.css";
 import BtnSlider from "./BtnSlider";
@@ -18,16 +10,16 @@ import "../../../node_modules/video-react/dist/video-react.css";
 import data from "../../data/data";
 
 export default function Slider() {
-  let day = 5;
   let newDate = new Date();
   let date = newDate.getDate();
+  let i = newDate.getDay();
   const [slideIndex, setSlideIndex] = useState(1);
 
   const nextSlide = () => {
     console.log(date);
-    if (slideIndex !== 4) {
+    if (slideIndex !== 3) {
       setSlideIndex(slideIndex + 1);
-    } else if (slideIndex === 4) {
+    } else if (slideIndex === 3) {
       setSlideIndex(1);
     }
   };
@@ -36,44 +28,108 @@ export default function Slider() {
     if (slideIndex !== 1) {
       setSlideIndex(slideIndex - 1);
     } else if (slideIndex === 1) {
-      setSlideIndex(4);
+      setSlideIndex(3);
     }
   };
 
   const moveDot = (index) => {
     setSlideIndex(index);
   };
-
-  return (
-    <>
+  if (slideIndex === 1) {
+    return (
       <div className="container-slider">
         <div className={slideIndex === 1 ? "slide active-anim" : "slide"}>
           <Card fluid="1">
-            <Image src={data.chakra[day].image} className="cardbody" />
+            <Image src={data.chakra[i].image} className="cardbody" />
             <Card.Content textAlign="center" style={{ height: "100%" }}>
-              <Card.Header style={{ height: "100%" }}>
-                {data.chakra[day].title}
+              <Card.Header style={{ height: "80%" }}>
+                {data.chakra[i].title}
               </Card.Header>
+              <Card.Description>{day[i]}</Card.Description>
             </Card.Content>
           </Card>
         </div>
+        <BtnSlider moveSlide={nextSlide} direction={"next"} />
+        <BtnSlider moveSlide={prevSlide} direction={"prev"} />
+        <div className="container-dots">
+          {Array.from({ length: 3 }).map((item, index) => (
+            <div
+              onClick={() => moveDot(index + 1)}
+              className={slideIndex === index + 1 ? "dot active" : "dot"}
+            ></div>
+          ))}
+        </div>
+      </div>
+    );
+  } else if (slideIndex === 2) {
+    return (
+      <div className="container-slider">
         <div className={slideIndex === 2 ? "slide active-anim" : "slide"}>
           <Card style={{ height: "100%" }} fluid="1" centered={true}>
             <Card.Content textAlign="center">
-              <Header as="h1">Affirmations:</Header>
-              {/* <Card.Description> */}
-              <List as="ul" size="massive">
-                {data.chakra[day].des.map((obj, i) => {
-                  return <List.Item as="li">{obj}</List.Item>;
+              <Header as="h1" textAlign="center">
+                Affirmations:
+              </Header>
+
+              <List as="ul" size="massive" divided textAlign="center">
+                {data.chakra[i].des.map((obj) => {
+                  return (
+                    <List.Item>
+                      <List.Content>
+                        <List.Header as="s1">{obj}</List.Header>
+                      </List.Content>
+                    </List.Item>
+                  );
                 })}
               </List>
-              {/* </Card.Description> */}
             </Card.Content>
           </Card>
         </div>
-        {/* <div
+        <BtnSlider moveSlide={nextSlide} direction={"next"} />
+        <BtnSlider moveSlide={prevSlide} direction={"prev"} />
+        <div className="container-dots">
+          {Array.from({ length: 3 }).map((item, index) => (
+            <div
+              onClick={() => moveDot(index + 1)}
+              className={slideIndex === index + 1 ? "dot active" : "dot"}
+            ></div>
+          ))}
+        </div>
+      </div>
+    );
+  } else if (slideIndex === 3) {
+    return (
+      <div className="container-slider">
+        <div className={slideIndex === 3 ? "slide active-anim" : "slide"}>
+          <Card fluid="1">
+            <Player src={`videos/${date}.mp4`}>
+              <BigPlayButton position="center" />
+              <ControlBar autoHide={false} disableDefaultControls={true} />
+            </Player>
+
+            <Card.Content textAlign="center">
+              <Card.Header>Daily Concentration</Card.Header>
+            </Card.Content>
+          </Card>
+        </div>
+        <BtnSlider moveSlide={nextSlide} direction={"next"} />
+        <BtnSlider moveSlide={prevSlide} direction={"prev"} />
+        <div className="container-dots">
+          {Array.from({ length: 3 }).map((item, index) => (
+            <div
+              onClick={() => moveDot(index + 1)}
+              className={slideIndex === index + 1 ? "dot active" : "dot"}
+            ></div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  {
+    /* <div
                 className={
-                  slideIndex === 3
+                  slideIndex === 3+
                     ? "slide active-anim"
                     : "slide"
                 }
@@ -85,34 +141,6 @@ export default function Slider() {
                     <Card.Description>{obj}</Card.Description>
                   </Card.Content>
                 </Card>
-              </div> */}
-
-        <div className={slideIndex === 3 ? "slide active-anim" : "slide"}>
-          <Card fluid="1">
-            <Player autoPlay src={`videos/${date}.mp4`}>
-              <ControlBar autoHide={false} disableDefaultControls={true}>
-                <PlayToggle />
-
-                <BigPlayButton position="center" />
-              </ControlBar>
-            </Player>
-
-            <Card.Content textAlign="center">
-              <Card.Header>Daily Concentration</Card.Header>
-            </Card.Content>
-          </Card>
-        </div>
-        <BtnSlider moveSlide={nextSlide} direction={"next"} />
-        <BtnSlider moveSlide={prevSlide} direction={"prev"} />
-        <div className="container-dots">
-          {Array.from({ length: 4 }).map((item, index) => (
-            <div
-              onClick={() => moveDot(index + 1)}
-              className={slideIndex === index + 1 ? "dot active" : "dot"}
-            ></div>
-          ))}
-        </div>
-      </div>
-    </>
-  );
+              </div> */
+  }
 }

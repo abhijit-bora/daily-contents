@@ -9,9 +9,8 @@ import {
   Modal,
   Segment,
 } from "semantic-ui-react";
-
+import day from "../data/day";
 import "../App";
-import DatePicker from "../components/DatePicker";
 
 function AllContents() {
   //   const [modalData, setModalData] = React.useState([]);
@@ -20,9 +19,14 @@ function AllContents() {
   async function readmore() {
     history.push(`/DailyContent`);
   }
+
   async function loggedOut() {
     history.push("/");
   }
+  let newDate = new Date();
+  let date = newDate.getDate();
+  let i = newDate.getDay();
+  console.log(day[i]);
   return (
     <>
       <div className="navbar">
@@ -43,7 +47,9 @@ function AllContents() {
           <Card.Content>
             <Card.Header>Card Title</Card.Header>
             <Card.Meta>
-              <span className="date">Today's Date</span>
+              <span className="date">
+                Date:{date} Day:{day[i]}
+              </span>
             </Card.Meta>
             <Card.Description>Card description</Card.Description>
             <Card.Content extra>
