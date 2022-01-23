@@ -44,7 +44,13 @@ export default {
       image:
         "https://img.playbuzz.com/image/upload/q_auto:best,f_auto,fl_lossy,w_640,c_limit,dpr_1/v1596364602/juxoluo0eks4suuud7yi.jpg",
       title: "Heart Chakra",
-      des: ["", "", "", "", ""],
+      des: [
+        "I welcome love with an open heart. ",
+        "My heart is healed from all the wounds of the past.",
+        "I naturally attract love everywhere I go.",
+        "I release and let go of all resentment.",
+        "My heart space radiates powerful green light.",
+      ],
     },
     {
       day: "thursday",
